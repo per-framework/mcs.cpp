@@ -1,7 +1,7 @@
 #pragma once
 
 #include "mcs_v1/config.hpp"
-#include "mcs_v1/lock_synopsis.hpp"
+#include "mcs_v1/synopsis.hpp"
 
 #include "dumpster_v1/finally.hpp"
 
