@@ -2,6 +2,8 @@
 
 MCS lock implementation for C++.
 
+See [`synopsis.hpp`](provides/include/mcs_v1/synopsis.hpp) for the API.
+
 ## <a id="contents"></a> [≡](#contents) [Contents](#contents)
 
 - [References](#references)
