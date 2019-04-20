@@ -4,6 +4,8 @@
 
 namespace mcs_v1 {
 
+// lock.hpp ====================================================================
+
 // Non-recursive MCS spin lock.
 struct Lock {
   struct holder_t;
