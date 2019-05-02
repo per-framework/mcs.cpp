@@ -1,4 +1,4 @@
-# [≡](#contents) [MCS.C++](#) [![Build Status](https://travis-ci.org/per-framework/mcs.cpp.svg?branch=v1)](https://travis-ci.org/per-framework/mcs.cpp)
+# [≡](#contents) [MCS.C++](#) [![Build Status](https://travis-ci.org/per-framework/mcs.cpp.svg?branch=v1)](https://travis-ci.org/per-framework/mcs.cpp) [![Code Coverage](https://img.shields.io/codecov/c/github/per-framework/mcs.cpp/v1.svg)](https://codecov.io/gh/per-framework/mcs.cpp/branch/v1)
 
 MCS lock implementation for C++.
 
