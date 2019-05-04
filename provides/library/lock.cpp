@@ -1,5 +1,4 @@
 #include "mcs_v1/lock.hpp"
-#include "config.hpp"
 
 #include "intrinsics_v1/pause.hpp"
 
@@ -9,7 +8,7 @@ void mcs_v1::Lock::acquire(lock_t &lock, holder_t &holder) {
     volatile bool locked = true;
     predecessor->locked = &locked;
     do {
-      intrinsics::pause();
+      intrinsics_v1::pause();
     } while (locked);
   }
 }
@@ -20,7 +19,7 @@ void mcs_v1::Lock::release(lock_t &lock, holder_t &holder) {
     if (lock.tail.compare_exchange_strong(pholder, nullptr))
       return;
     do {
-      intrinsics::pause();
+      intrinsics_v1::pause();
     } while (!holder.locked);
   }
   *holder.locked = false;
