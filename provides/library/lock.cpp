@@ -4,24 +4,24 @@
 #include "intrinsics_v1/pause.hpp"
 
 void mcs_v1::Lock::acquire(lock_t &lock, holder_t &holder) {
-  holder.next = nullptr;
+  holder.locked = nullptr;
   if (holder_t *predecessor = lock.tail.exchange(&holder)) {
-    holder.locked = true;
-    predecessor->next = &holder;
+    volatile bool locked = true;
+    predecessor->locked = &locked;
     do {
       intrinsics::pause();
-    } while (holder.locked);
+    } while (locked);
   }
 }
 
 void mcs_v1::Lock::release(lock_t &lock, holder_t &holder) {
   holder_t *pholder = &holder;
-  if (!holder.next) {
+  if (!holder.locked) {
     if (lock.tail.compare_exchange_strong(pholder, nullptr))
       return;
     do {
       intrinsics::pause();
-    } while (!holder.next);
+    } while (!holder.locked);
   }
-  holder.next->locked = false;
+  *holder.locked = false;
 }
