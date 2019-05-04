@@ -17,7 +17,7 @@ auto smoke = test([]() {
 
 auto contention = test([]() {
   const size_t n_threads = std::max(std::thread::hardware_concurrency(), 2u);
-  const size_t n_ops = 10000;
+  const size_t n_ops = 100000;
 
   std::mutex mutex;
   std::condition_variable condition;

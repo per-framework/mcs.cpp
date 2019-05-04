@@ -18,8 +18,7 @@ struct mcs_v1::Lock::holder_t {
 private:
   friend struct Lock;
 
-  volatile holder_t *next;
-  volatile bool locked;
+  volatile bool *locked;
 };
 
 struct mcs_v1::Lock::lock_t {
