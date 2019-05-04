@@ -8,9 +8,7 @@
 #include <atomic>
 
 struct mcs_v1::Lock::holder_t {
-  holder_t() {
-    // No initialization necessary
-  }
+  holder_t() = default; // No initialization necessary
 
   holder_t(const holder_t &) = delete;
   holder_t &operator=(const holder_t &) = delete;
