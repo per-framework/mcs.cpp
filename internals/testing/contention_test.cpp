@@ -10,12 +10,7 @@
 using namespace testing_v1;
 using namespace mcs_v1;
 
-auto smoke = test([]() {
-  Lock::lock_t lock;
-  verify(Lock::holding(lock, []() { return true; }));
-});
-
-auto contention = test([]() {
+auto contention_test = test([]() {
   const size_t n_threads =
       std::clamp(std::thread::hardware_concurrency(), 2u, 8u);
   const size_t n_ops = 100000;
