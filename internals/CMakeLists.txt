@@ -1,2 +1,1 @@
-add_conventional_executable_test(mcs_test)
-target_link_libraries(mcs_test PRIVATE mcs_v1 testing_v1 std_thread)
+add_conventional_executable_tests(PRIVATE mcs_v1 testing_v1 std_thread)
