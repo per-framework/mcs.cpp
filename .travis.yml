@@ -12,11 +12,12 @@ matrix:
     - os: windows
 
 git:
+  depth: 1
   submodules: false
 
 before_install:
   - export -f travis_nanoseconds travis_time_start travis_time_finish
-  - git submodule update --init
 
 script:
-  - if [ -x ./test ]; then ./test; else .cppsm/travis-ci; fi
+  - if ! [ -x .cppsm/travis-ci ]; then git submodule --quiet update --init --no-recommend-shallow --depth 1 .cppsm; fi
+  - .cppsm/travis-ci
