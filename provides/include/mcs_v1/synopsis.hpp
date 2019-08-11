@@ -31,6 +31,7 @@ struct lock : Private::lock_t {
   /// Locks are not CopyAssignable.
   lock &operator=(const lock &) = delete;
 
+  /// Default maximum spin count before bailing out to atomic wait.
   static constexpr unsigned default_max_spin_count = 1000;
 
   /// Acquires the lock.  The `holder` must be allocated by the caller, kept
