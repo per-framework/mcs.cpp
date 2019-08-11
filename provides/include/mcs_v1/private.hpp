@@ -15,7 +15,9 @@ class Private {
   class holder_t;
   class lock_t;
 
-  static void acquire(lock_t &lock, holder_t &holder);
+  enum state_t : uint8_t { SPINNING, WAITING, RELEASED };
+
+  static void acquire(lock_t &lock, holder_t &holder, unsigned max_spin_count);
   static void release(lock_t &lock, holder_t &holder);
 };
 
@@ -23,7 +25,7 @@ class Private {
 
 class mcs_v1::Private::holder_t {
   friend class Private;
-  volatile bool *locked;
+  std::atomic<std::atomic<state_t> *> state;
 };
 
 class mcs_v1::Private::lock_t {

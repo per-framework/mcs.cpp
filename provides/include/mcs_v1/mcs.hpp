@@ -5,8 +5,8 @@
 
 #include "dumpster_v1/finally.hpp"
 
-inline void mcs_v1::lock::acquire(holder &holder) {
-  Private::acquire(*this, holder);
+inline void mcs_v1::lock::acquire(holder &holder, unsigned max_spin_count) {
+  Private::acquire(*this, holder, max_spin_count);
 }
 
 inline void mcs_v1::lock::release(holder &holder) {
@@ -14,9 +14,10 @@ inline void mcs_v1::lock::release(holder &holder) {
 }
 
 template <class Action>
-std::invoke_result_t<Action> mcs_v1::lock::holding(Action &&action) {
+std::invoke_result_t<Action> mcs_v1::lock::holding(Action &&action,
+                                                   unsigned max_spin_count) {
   holder holder;
-  acquire(holder);
+  acquire(holder, max_spin_count);
   auto releaser = dumpster::finally([&]() { release(holder); });
   return action();
 }
