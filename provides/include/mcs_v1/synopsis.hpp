@@ -31,17 +31,22 @@ struct lock : Private::lock_t {
   /// Locks are not CopyAssignable.
   lock &operator=(const lock &) = delete;
 
+  static constexpr unsigned default_max_spin_count = 1000;
+
   /// Acquires the lock.  The `holder` must be allocated by the caller, kept
   /// alive while the lock is held, and passed to `release` to release the lock.
   /// A unique holder per live acquire is required.
-  void acquire(holder &holder);
+  void acquire(holder &holder,
+               unsigned max_spin_count = default_max_spin_count);
 
   /// Releases the lock.  The `holder` must be the same instance that was passed
   /// in a matching call to `acquire`.
   void release(holder &holder);
 
   /// Invokes the action holding the lock.
-  template <class Action> std::invoke_result_t<Action> holding(Action &&action);
+  template <class Action>
+  std::invoke_result_t<Action>
+  holding(Action &&action, unsigned max_spin_count = default_max_spin_count);
 };
 
 } // namespace mcs_v1
