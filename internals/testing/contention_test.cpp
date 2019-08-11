@@ -1,4 +1,4 @@
-#include "mcs_v1/lock.hpp"
+#include "mcs_v1/mcs.hpp"
 
 #include "testing_v1/test.hpp"
 
@@ -22,7 +22,7 @@ auto contention_test = test([]() {
   size_t n_threads_stopped = 0;
 
   size_t c_ops = 0;
-  Lock::lock_t lock;
+  lock lock;
 
   for (size_t i = 0; i < n_threads; ++i) {
     std::thread([&]() {
@@ -35,11 +35,11 @@ auto contention_test = test([]() {
       }
 
       {
-        Lock::holder_t holder;
+        holder holder;
         for (size_t j = 0; j < n_ops; ++j) {
-          Lock::acquire(lock, holder);
+          lock.acquire(holder);
           c_ops += 1;
-          Lock::release(lock, holder);
+          lock.release(holder);
         }
       }
 
