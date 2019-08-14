@@ -20,6 +20,9 @@ struct holder : Private::holder_t {
   holder &operator=(const holder &) = delete;
 };
 
+// Holders are no larger than pointers.
+static_assert(sizeof(holder) <= sizeof(void *));
+
 /// Type of lock objects.
 struct lock : Private::lock_t {
   /// Constructs a lock by zero initializing it.
@@ -49,5 +52,8 @@ struct lock : Private::lock_t {
   std::invoke_result_t<Action>
   holding(Action &&action, unsigned max_spin_count = default_max_spin_count);
 };
+
+// Locks are no larger than pointers.
+static_assert(sizeof(lock) <= sizeof(void *));
 
 } // namespace mcs_v1
