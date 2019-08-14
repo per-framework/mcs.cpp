@@ -32,5 +32,5 @@ class mcs_v1::Private::lock_t {
   friend class Private;
   friend struct lock;
   std::atomic<holder_t *> tail;
-  lock_t() : tail(nullptr) {}
+  lock_t();
 };

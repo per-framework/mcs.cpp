@@ -5,6 +5,8 @@
 
 #include "dumpster_v1/finally.hpp"
 
+inline mcs_v1::Private::lock_t::lock_t() : tail(nullptr) {}
+
 inline void mcs_v1::lock::acquire(holder &holder, unsigned max_spin_count) {
   Private::acquire(*this, holder, max_spin_count);
 }
